@@ -7,8 +7,6 @@ from borrowing.models import Borrowing
 
 
 class BorrowingSerializer(serializers.ModelSerializer):
-    book = BookSerializer(many=False, read_only=True)
-
     class Meta:
         model = Borrowing
         fields = (
@@ -18,6 +16,7 @@ class BorrowingSerializer(serializers.ModelSerializer):
             "actual_return_date",
             "book",
             "user",
+            "is_active"
         )
         read_only_fields = fields
 
@@ -32,6 +31,7 @@ class BorrowingListSerializer(BorrowingSerializer):
             "book_title",
             "expected_return_date",
             "user",
+            "is_active"
         )
         read_only_fields = fields
 

@@ -17,5 +17,9 @@ class Book(models.Model):
             "title",
         ]
 
+    def decrease_inventory_when_borrowed(self):
+        self.inventory -= 1
+        self.save()
+
     def __str__(self) -> str:
         return self.title

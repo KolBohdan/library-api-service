@@ -57,7 +57,7 @@ class Borrowing(models.Model):
         )
 
     def __str__(self) -> str:
-        return f"{self.book} borrowed by {self.user} at {str(self.borrow_date)}"
+        return f"{self.book} borrowed by {self.user} on {str(self.borrow_date)}"
 
     @property
     def is_active(self) -> bool:

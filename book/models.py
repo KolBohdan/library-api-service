@@ -21,5 +21,9 @@ class Book(models.Model):
         self.inventory -= 1
         self.save()
 
+    def increase_inventory_when_returned(self):
+        self.inventory += 1
+        self.save()
+
     def __str__(self) -> str:
         return self.title

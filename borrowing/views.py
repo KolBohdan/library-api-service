@@ -1,5 +1,7 @@
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets, mixins, status
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from borrowing.models import Borrowing
 from borrowing.serializers import (
@@ -41,7 +43,7 @@ class BorrowingViewSet(
         if self.action == "list":
             return BorrowingListSerializer
 
-        if self.action == "retrieve":
+        if self.action in ["retrieve", "return_borrowing"]:
             return BorrowingDetailSerializer
 
         if self.action == "create":
@@ -51,3 +53,19 @@ class BorrowingViewSet(
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    @action(
+        methods=["POST"],
+        detail=True,
+        url_path="return",
+        permission_classes=[IsAuthenticated, ],
+    )
+    def return_borrowing(self, request, pk=None):
+        """Endpoint for returning specific borrowing"""
+        borrowing = self.get_object()
+        serializer = self.get_serializer(borrowing, data=request.data, partial=True)
+
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_200_OK)

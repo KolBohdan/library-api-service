@@ -19,7 +19,7 @@ class BorrowingViewSet(
     viewsets.GenericViewSet,
 ):
     queryset = Borrowing.objects.select_related("book")
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         queryset = self.queryset
@@ -58,7 +58,9 @@ class BorrowingViewSet(
         methods=["POST"],
         detail=True,
         url_path="return",
-        permission_classes=[IsAuthenticated, ],
+        permission_classes=[
+            IsAuthenticated,
+        ],
     )
     def return_borrowing(self, request, pk=None):
         """Endpoint for returning specific borrowing"""

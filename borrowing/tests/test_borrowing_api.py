@@ -9,9 +9,7 @@ from rest_framework.test import APIClient
 from book.models import Book
 from borrowing.models import Borrowing
 from borrowing.serializers import (
-    BorrowingCreateSerializer,
     BorrowingDetailSerializer,
-    BorrowingSerializer,
     BorrowingListSerializer,
 )
 
